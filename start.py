@@ -4,13 +4,15 @@ size = width, height = 800, 600
 black = 0, 0, 0
 speed = [2, 2]
 
-ball = pygame.image.load("graph/face1.png")
-ballrect = ball.get_rect()
+face = pygame.image.load("graph/face1.png")
+ballrect = face.get_rect()
 
 
 if __name__ == "__main__":
     pygame.init()
-    screen = pygame.display.set_mode(size)
+    screen = pygame.display.set_mode(size, vsync=True)
+    pygame.display.set_caption("Castle wars")
+    pygame.display.set_icon(face)
 
     pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_CROSSHAIR)
 
@@ -26,7 +28,7 @@ if __name__ == "__main__":
             speed[1] = -speed[1]
 
         screen.fill(black)
-        screen.blit(ball, ballrect)
+        screen.blit(face, ballrect)
         pygame.display.flip()
 
         clock.tick_busy_loop(30)
