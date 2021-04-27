@@ -1,35 +1,30 @@
 import pygame
+import sprites
+import graph
 
-size = width, height = 800, 600
-black = 0, 0, 0
 speed = [2, 2]
 
-face = pygame.image.load("graph/face1.png")
-ballrect = face.get_rect()
-
+factrect = sprites.face.get_rect()
 
 if __name__ == "__main__":
     pygame.init()
-    screen = pygame.display.set_mode(size, vsync=True)
-    pygame.display.set_caption("Castle wars")
-    pygame.display.set_icon(face)
-
-    pygame.mouse.set_system_cursor(pygame.SYSTEM_CURSOR_CROSSHAIR)
+    graph.init()
 
     clock = pygame.time.Clock()
 
     do_exit = False
     
     while not do_exit:
-        ballrect = ballrect.move(speed)
-        if ballrect.left < 0 or ballrect.right  > width:
+        factrect = factrect.move(speed)
+        if factrect.left < 0 or factrect.right  > graph.width:
             speed[0] = -speed[0]
-        if ballrect.top < 0 or ballrect.bottom > height:
+        if factrect.top < 0 or factrect.bottom > graph.height:
             speed[1] = -speed[1]
 
-        screen.fill(black)
-        screen.blit(face, ballrect)
-        pygame.display.flip()
+        graph.clear()
+        graph.screen.blit(sprites.face, factrect)
+        graph.flip()
+        
 
         clock.tick_busy_loop(30)
     
@@ -40,13 +35,13 @@ if __name__ == "__main__":
                 if event.key == pygame.K_ESCAPE:
                     do_exit = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.pos[0] < ballrect.left:
+                if event.pos[0] < factrect.left:
                     speed[0] = speed[0] - 1
-                elif event.pos[0] > ballrect.right:
+                elif event.pos[0] > factrect.right:
                     speed[0] = speed[0] + 1
-                if event.pos[1] < ballrect.top:
+                if event.pos[1] < factrect.top:
                     speed[1] = speed[1] - 1
-                elif event.pos[1] > ballrect.bottom:
+                elif event.pos[1] > factrect.bottom:
                     speed[1] = speed[1] + 1
     
 
